@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'ui/screen.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -15,19 +18,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Lato',
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.blue
+          primarySwatch: Colors.blue,
         ).copyWith(
           secondary:Colors.deepOrange,
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('MyShop'),
-        ),
-        body: const Center(
-          child: Text('Welcome to MyShop'),
-        ),
-      ),
+      home: const AppDrawer(),
+      routes: {
+        BrandScreen.routeName:
+           (ctx) => const BrandScreen(),
+        ConfigScreen.routeName:
+           (ctx) => const ConfigScreen(),
+        ResLeaseScreen.routeName:
+           (ctx) => const ResLeaseScreen(),    
+      },
+
     );
   }
 }
