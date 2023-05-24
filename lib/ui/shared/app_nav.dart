@@ -35,7 +35,6 @@ class AppNav extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                 .pushNamed(ConfigScreen.routeName);
-            
             },
           ),
 
@@ -46,7 +45,6 @@ class AppNav extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                 .pushNamed(BrandScreen.routeName);
-            
             },
           ),
         ],

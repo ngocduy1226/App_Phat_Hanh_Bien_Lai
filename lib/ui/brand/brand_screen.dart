@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'brand_list_tile.dart';
 import 'brand_manager.dart';
 
@@ -42,13 +42,16 @@ class BrandScreen extends StatelessWidget {
   }
 
   Widget buildBrandListView(BrandManager brandManager) {
-    return ListView.builder(
-        itemCount: brandManager.itemCount,
-        itemBuilder: (ctx, i) => Column(
-              children: [
-                BrandListTile(brandManager.brandList[i]),
-                const Divider(),
-              ],
-            ));
+    return Consumer<BrandManager>(
+      builder: (ctx, brandManager, child) {
+      return ListView.builder(
+          itemCount: brandManager.itemCount,
+          itemBuilder: (ctx, i) => Column(
+                children: [
+                  BrandListTile(brandManager.brandList[i]),
+                  const Divider(),
+                ],
+              ));
+    });
   }
 }
