@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../brand/brand_screen.dart';
 import '../configuration/config_screen.dart';
 
-
 //thuc hien dieu huong trong ung dung
 class AppNav extends StatelessWidget {
   const AppNav({super.key});
@@ -22,7 +21,7 @@ class AppNav extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.payment),
-            title: const Text('Phat hanh'),
+            title: const Text('Phát hành'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/');
             },
@@ -32,10 +31,10 @@ class AppNav extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text('Danh muc'),
+            title: const Text('Cấu hình'),
             onTap: () {
               Navigator.of(context)
-                .pushNamed(BrandScreen.routeName);
+                .pushNamed(ConfigScreen.routeName);
             
             },
           ),
@@ -43,10 +42,10 @@ class AppNav extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text('Cau hinh'),
+            title: const Text('Danh mục '),
             onTap: () {
               Navigator.of(context)
-                .pushNamed(ConfigScreen.routeName);
+                .pushNamed(BrandScreen.routeName);
             
             },
           ),
