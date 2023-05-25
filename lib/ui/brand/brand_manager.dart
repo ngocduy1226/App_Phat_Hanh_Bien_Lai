@@ -5,13 +5,13 @@ class BrandManager with ChangeNotifier {
   final List<Brand> _brandList = [
     Brand(
       id: 'p1',
-      title: 'aaa',
-      content: '1,000d',
+      content: 'aaa',
+      denominations: 1.000,
     ),
     Brand(
-      id: 'p1',
-      title: 'aaa',
-      content: '2,500d',
+      id: 'p2',
+      content: 'bbb',
+      denominations: 2.500,
     ),
   ];
 
@@ -21,6 +21,14 @@ class BrandManager with ChangeNotifier {
 
   List<Brand> get brandList {
     return [..._brandList];
+  }
+
+   Brand? findById(String id) {
+    try {
+      return _brandList.firstWhere((item) => item.id == id);
+    } catch (error) {
+      return null;
+    }
   }
 
   void addBrand(Brand brand) {

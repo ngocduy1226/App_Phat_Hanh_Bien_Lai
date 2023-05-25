@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'brand_list_tile.dart';
 import 'brand_manager.dart';
+import 'edit_brand_screen.dart';
 
 class BrandScreen extends StatelessWidget {
   static const routeName = '/brand-list';
@@ -36,7 +37,9 @@ class BrandScreen extends StatelessWidget {
   Widget buildAddButton(BuildContext context) {
     return IconButton(
         onPressed: () {
-          print('them danh muc');
+         Navigator.of(context).pushNamed(
+          EditBrandScreen.routeName,
+        );
         },
         icon: const Icon(Icons.add));
   }
