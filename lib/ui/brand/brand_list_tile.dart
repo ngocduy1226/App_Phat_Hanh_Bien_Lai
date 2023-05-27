@@ -30,7 +30,7 @@ class BrandListTile extends StatelessWidget {
         ),
         child: ListTile(
           title: Text(brand.content, style: TextStyle(color: Colors.black)),
-          subtitle: Text((NumberFormat('###,###','en_US').format(_amount)).toString()),
+          subtitle: Text((NumberFormat('###,###','en_US').format(_amount)).toString() +" đ"),
           trailing: SizedBox(
             width: 100,
             child: Row(children: <Widget>[
@@ -46,6 +46,7 @@ class BrandListTile extends StatelessWidget {
   Widget buildEditButton(BuildContext context) {
     // print(brand.id);
     return IconButton(
+      color:Colors.purple,
       icon: const Icon(Icons.edit),
       onPressed: () {
         Navigator.of(context).pushNamed(
@@ -53,7 +54,7 @@ class BrandListTile extends StatelessWidget {
           arguments: brand.id,
         );
       },
-      color: Theme.of(context).primaryColor,
+      
     );
   }
 

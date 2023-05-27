@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myshop/ui/brand/add_brand_screen.dart';
 import 'package:myshop/ui/brand/brand_manager.dart';
 import 'package:myshop/ui/brand/edit_brand_screen.dart';
+import 'package:myshop/ui/configuration/config_manager.dart';
+import 'package:myshop/ui/configuration/edit_config.dart';
 import 'ui/screen.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +20,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (ctx) => BrandManager(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => ConfigManager(),
         )
       ],
       child: MaterialApp(
@@ -47,6 +53,31 @@ class MyApp extends StatelessWidget {
                 );
               });
             }
+
+            if (settings.name == AddBrandScreen.routeName) {
+              final brandId = settings.arguments as String?;
+              return MaterialPageRoute(builder: (ctx) {
+                return AddBrandScreen(
+                  brandId != null
+                      ? ctx.read<BrandManager>().findById(brandId)
+                      : null,
+                );
+              });
+            }
+
+            if (settings.name == EditConfigScreen.routeName) {
+              final configId = settings.arguments as String?;
+              return MaterialPageRoute(
+                builder: (ctx) {
+                  return EditConfigScreen(
+                    configId != null
+                        ? ctx.read<ConfigManager>().findById(configId)
+                        : null,
+                  );
+                },
+              );
+            }
+
             return null;
           }),
     );

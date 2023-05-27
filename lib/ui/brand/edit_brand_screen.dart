@@ -33,7 +33,6 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
   late Brand _editedBrand;
   var _isLoading = false;
 
-
   //khoi tao cac bien
   @override
   void initState() {
@@ -80,9 +79,8 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
 
   @override
   Widget build(BuildContext context) {
-  
-    const text = Text('Danh mục - Thêm');
-    
+    const text = Text('Danh mục - Cập nhật');
+
     return Scaffold(
         appBar: AppBar(title: text, actions: <Widget>[
           IconButton(
@@ -133,9 +131,10 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
   }
 
   TextFormField buildDeMoNiField() {
-    var  _amount= double.tryParse(_editedBrand.denominations.toString()) ?? 0;
+    var _amount = double.tryParse(_editedBrand.denominations.toString()) ?? 0;
     return TextFormField(
-      initialValue: (NumberFormat('###,###','en_US').format(_amount)).toString(),
+      initialValue:
+          (NumberFormat('###,###', 'en_US').format(_amount)).toString(),
       decoration: const InputDecoration(
           labelText: 'Nhập mệnh giá', border: OutlineInputBorder()),
       textInputAction: TextInputAction.next,
@@ -159,24 +158,4 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
     );
   }
 
-  Widget buildBrandPreview() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        Container(
-          width: 100,
-          height: 100,
-          margin: const EdgeInsets.only(
-            top: 8,
-            right: 10,
-          ),
-          decoration: BoxDecoration(
-              border: Border.all(
-            width: 1,
-            color: Colors.grey,
-          )),
-        )
-      ],
-    );
-  }
 }

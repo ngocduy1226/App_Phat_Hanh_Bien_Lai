@@ -32,9 +32,9 @@ class _AppDrawerState extends State<AppDrawer> {
     return Container(
       child: Scaffold(
         drawer: const AppNav(),
-        appBar: AppBar(
-          title: titles[selectedIndex],
-        ),
+        // appBar: AppBar(
+        //   title: titles[selectedIndex],
+        // ),
         bottomNavigationBar: BottomNavigationBar(
           onTap: changePage,
           backgroundColor: Colors.blue,

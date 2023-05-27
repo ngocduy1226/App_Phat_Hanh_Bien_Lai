@@ -12,41 +12,32 @@ class BrandScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final brandManager = BrandManager();
     return Scaffold(
-        body: Column(
-      children: [
-        Expanded(
-          flex: 8,
-          child: RefreshIndicator(
-            child: buildBrandListView(brandManager),
-            onRefresh: () async => print('refresh brand'),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: buildAddButton(context),
-        )
-      ],
-    ));
-
-    // return RefreshIndicator(
-    //   child: buildBrandListView(brandManager),
-    //   onRefresh: () async => print('refresh brand'),
-    //   );
+      appBar: AppBar(
+        title: Text('Danh mục'),
+        actions: <Widget>[
+          buildAddButton(context),
+        ],
+      ),
+     
+      body: RefreshIndicator(
+        child: buildBrandListView(brandManager),
+        onRefresh: () async => print('refresh brand'),
+      ),
+    );
   }
 
   Widget buildAddButton(BuildContext context) {
     return IconButton(
         onPressed: () {
-         Navigator.of(context).pushNamed(
-          EditBrandScreen.routeName,
-        );
+          Navigator.of(context).pushNamed(
+            EditBrandScreen.routeName,
+          );
         },
         icon: const Icon(Icons.add));
   }
 
   Widget buildBrandListView(BrandManager brandManager) {
-    return Consumer<BrandManager>(
-      builder: (ctx, brandManager, child) {
+    return Consumer<BrandManager>(builder: (ctx, brandManager, child) {
       return ListView.builder(
           itemCount: brandManager.itemCount,
           itemBuilder: (ctx, i) => Column(
