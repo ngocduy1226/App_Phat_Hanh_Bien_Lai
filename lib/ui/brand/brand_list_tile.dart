@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:myshop/ui/brand/brand_manager.dart';
 import 'package:myshop/ui/brand/edit_brand_screen.dart';
 import 'package:myshop/ui/shared/dialog_utils.dart';
@@ -14,6 +15,7 @@ class BrandListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var  _amount= double.tryParse(brand.denominations.toString()) ?? 0;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -28,7 +30,7 @@ class BrandListTile extends StatelessWidget {
         ),
         child: ListTile(
           title: Text(brand.content, style: TextStyle(color: Colors.black)),
-          subtitle: Text('\$${brand.denominations}'),
+          subtitle: Text((NumberFormat('###,###','en_US').format(_amount)).toString()),
           trailing: SizedBox(
             width: 100,
             child: Row(children: <Widget>[

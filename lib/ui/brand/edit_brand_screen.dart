@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../models/brand.dart';
 import '../shared/dialog_utils.dart';
@@ -32,6 +33,7 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
   late Brand _editedBrand;
   var _isLoading = false;
 
+
   //khoi tao cac bien
   @override
   void initState() {
@@ -64,7 +66,7 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
         brandManager.addBrand(_editedBrand);
       }
     } catch (error) {
-      await showErrorDialog(context, "Loi");
+      await showErrorDialog(context, "Lỗi");
     }
 
     setState(() {
@@ -78,9 +80,11 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
 
   @override
   Widget build(BuildContext context) {
+  
+    const text = Text('Danh mục - Thêm');
+    
     return Scaffold(
-        appBar:
-            AppBar(title: const Text('Cap nhat san pham'), actions: <Widget>[
+        appBar: AppBar(title: text, actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: _saveForm,
@@ -95,8 +99,14 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                 child: Form(
                     key: _editForm,
                     child: ListView(children: <Widget>[
-                      buildDeMoNiField(),
-                      buildContentField(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+                        child: buildDeMoNiField(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+                        child: buildContentField(),
+                      ),
 
                       // buildBrandPreview()
                     ])),
@@ -106,12 +116,13 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
   TextFormField buildContentField() {
     return TextFormField(
       initialValue: _editedBrand.content,
-      decoration: const InputDecoration(labelText: 'Nội dung'),
+      decoration: const InputDecoration(
+          labelText: 'Nhập nội dung', border: OutlineInputBorder()),
       textInputAction: TextInputAction.next,
       autofocus: true,
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Nhap noi dung';
+          return 'Nhập nội dung';
         }
         return null;
       },
@@ -122,20 +133,22 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
   }
 
   TextFormField buildDeMoNiField() {
+    var  _amount= double.tryParse(_editedBrand.denominations.toString()) ?? 0;
     return TextFormField(
-      initialValue: _editedBrand.denominations.toString(),
-      decoration: const InputDecoration(labelText: 'Mệnh giá'),
+      initialValue: (NumberFormat('###,###','en_US').format(_amount)).toString(),
+      decoration: const InputDecoration(
+          labelText: 'Nhập mệnh giá', border: OutlineInputBorder()),
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.number,
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Nhap menh gia';
+          return 'Nhập mệnh giá';
         }
         if (double.tryParse(value) == null) {
-          return "Menh gia khong rong";
+          return "Mệnh giá không rỗng";
         }
         if (double.parse(value) <= 0) {
-          return "Menh gia lon hon 0";
+          return "Mệnh giá lớn hơn 0";
         }
         return null;
       },
