@@ -29,24 +29,24 @@ class AppNav extends StatelessWidget {
 
 
           const Divider(),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: const Text('Cấu hình'),
-            onTap: () {
-              Navigator.of(context)
-                .pushNamed(ConfigScreen.routeName);
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.exit_to_app),
+          //   title: const Text('Cấu hình'),
+          //   onTap: () {
+          //     Navigator.of(context)
+          //       .pushNamed(ConfigScreen.routeName);
+          //   },
+          // ),
 
           const Divider(),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: const Text('Danh mục '),
-            onTap: () {
-              Navigator.of(context)
-                .pushNamed(BrandScreen.routeName);
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.exit_to_app),
+          //   title: const Text('Danh mục '),
+          //   onTap: () {
+          //     Navigator.of(context)
+          //       .pushNamed(BrandScreen.routeName);
+          //   },
+          // ),
         ],
       ),
     );

@@ -44,3 +44,23 @@ Future<void> showErrorDialog(BuildContext context, String message) {
     ),
   );
 }
+
+
+Future <void> showMessage(BuildContext context,  String errorMessage, [String? s]) async {
+    final alert = AlertDialog(
+      title: Text(
+        errorMessage,
+        style: const TextStyle(color: Colors.red),
+      ),
+      content: Text(
+        s!,
+        style: const TextStyle(color: Colors.red),
+      ),
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }

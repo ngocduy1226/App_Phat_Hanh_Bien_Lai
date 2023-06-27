@@ -1,161 +1,120 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import '../../models/brand.dart';
+import 'package:myshop/SQLDB.dart';
+import 'package:myshop/ui/brand/brand_screen.dart';
+
 import '../shared/dialog_utils.dart';
 
-import 'brand_manager.dart';
-
-class EditBrandScreen extends StatefulWidget {
-  static const routeName = '/edit-brand';
-  EditBrandScreen(
-    Brand? brand, {
-    super.key,
-  }) {
-    if (brand == null) {
-      this.brand = Brand(
-        id: null,
-        content: '',
-        denominations: 0,
-      );
-    } else {
-      this.brand = brand;
-    }
-  }
-  late final Brand brand;
+class UpdateBrand extends StatefulWidget {
+  final id;
+  final content;
+  final denominations;
+  const UpdateBrand({Key? key, this.id, this.content, this.denominations})
+      : super(key: key);
 
   @override
-  State<EditBrandScreen> createState() => _EditBrandScreenState();
+  State<UpdateBrand> createState() => _UpdateBrandState();
 }
 
-class _EditBrandScreenState extends State<EditBrandScreen> {
-  final _editForm = GlobalKey<FormState>();
-  late Brand _editedBrand;
-  var _isLoading = false;
+class _UpdateBrandState extends State<UpdateBrand> {
+  TextEditingController _content = TextEditingController();
+  TextEditingController _denominations = TextEditingController();
+  SQLdb sqLdb = SQLdb();
 
-  //khoi tao cac bien
-  @override
-  void initState() {
-    _editedBrand = widget.brand;
-    super.initState();
-  }
-
-  //giai phong bien
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Future<void> _saveForm() async {
-    final isValid = _editForm.currentState!.validate();
-    if (!isValid) {
+  //--------Hàm buttom phát hành-----------------
+  Future<void> UpdateBrand() async {
+    if (_content.text == null || _content.text == "") {
+      showMessage(context, "Lỗi nhập liệu", "Vui lòng nhập nội dung!");
       return;
     }
-    _editForm.currentState!.save();
+    if (_denominations.text == null || _denominations.text == "") {
+      showMessage(context, "Lỗi nhập liệu", "Vui lòng nhập mệnh giá!");
+      return;
+    } else {
+      int yes = await sqLdb.updateData('''
+                      UPDATE "brands" SET
+                      content = "${_content.text}",
+                      denominations = ${double.parse(_denominations.text)}
+                      WHERE id = "${widget.id}"
+                    ''');
 
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final brandManager = context.read<BrandManager>();
-      if (_editedBrand.id != null) {
-        brandManager.updateBrand(_editedBrand);
+      if (yes > 0) {
+        Navigator.of(context).pop();
       } else {
-        brandManager.addBrand(_editedBrand);
+        showErrorDialog(context, "Tạo danh mục không thành công!");
       }
-    } catch (error) {
-      await showErrorDialog(context, "Lỗi");
     }
+  }
 
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (mounted) {
-      Navigator.of(context).pop();
-    }
+  @override
+  void initState() {
+    _content.text = widget.content;
+    _denominations.text = widget.denominations.toString();
+    //TODO: implement initState
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    const text = Text('Danh mục - Cập nhật');
-
     return Scaffold(
-        appBar: AppBar(title: text, actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: _saveForm,
-          )
-        ]),
-        body: _isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Form(
-                    key: _editForm,
-                    child: ListView(children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-                        child: buildDeMoNiField(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-                        child: buildContentField(),
-                      ),
-
-                      // buildBrandPreview()
-                    ])),
-              ));
-  }
-
-  TextFormField buildContentField() {
-    return TextFormField(
-      initialValue: _editedBrand.content,
-      decoration: const InputDecoration(
-          labelText: 'Nhập nội dung', border: OutlineInputBorder()),
-      textInputAction: TextInputAction.next,
-      autofocus: true,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Nhập nội dung';
-        }
-        return null;
-      },
-      onSaved: (value) {
-        _editedBrand = _editedBrand.copyWith(content: value);
-      },
+      appBar: AppBar(
+        title: const Text("Danh mục - Cập nhật"),
+        actions: <Widget>[
+          buildBtnAdd(),
+        ],
+      ),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              buildUpdateDeno(),
+              const SizedBox(
+                height: 30,
+              ),
+              buildUpdateContent(),
+              const SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  TextFormField buildDeMoNiField() {
-    var _amount = double.tryParse(_editedBrand.denominations.toString()) ?? 0;
-    return TextFormField(
-      initialValue:
-          (NumberFormat('###,###', 'en_US').format(_amount)).toString(),
-      decoration: const InputDecoration(
-          labelText: 'Nhập mệnh giá', border: OutlineInputBorder()),
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.number,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Nhập mệnh giá';
-        }
-        if (double.tryParse(value) == null) {
-          return "Mệnh giá không rỗng";
-        }
-        if (double.parse(value) <= 0) {
-          return "Mệnh giá lớn hơn 0";
-        }
-        return null;
+  Widget buildBtnAdd() {
+    return IconButton(
+      onPressed: () async {
+        UpdateBrand();
       },
-      onSaved: (value) {
-        _editedBrand =
-            _editedBrand.copyWith(denominations: double.parse(value!));
-      },
+      icon: const Icon(Icons.save, size: 20),
     );
   }
 
+  Widget buildUpdateDeno() {
+    return TextField(
+      controller: _denominations,
+      style: const TextStyle(fontSize: 18, color: Colors.black),
+      decoration: const InputDecoration(
+        labelText: "Mệnh giá",
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+      ),
+    );
+  }
+
+  Widget buildUpdateContent() {
+    return TextField(
+      controller: _content,
+      style: TextStyle(fontSize: 18, color: Colors.black),
+      decoration: InputDecoration(
+        labelText: "Nội dung",
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+      ),
+    );
+  }
 }

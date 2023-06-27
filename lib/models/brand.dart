@@ -1,23 +1,36 @@
 class Brand {
   final String? id;
-  final double denominations;
-  final String content;
+  late final String content;
+  late final double denominations;
 
   Brand({
     this.id,
-    required this.denominations,
     required this.content,
+    required this.denominations,
   });
 
   Brand copyWith({
     String? id,
-    double? denominations,
     String? content,
+    double? denominations,
   }) {
     return Brand(
       id: id ?? this.id,
-      denominations: denominations ?? this.denominations,
       content: content ?? this.content,
+      denominations: denominations ?? this.denominations,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'content': content,
+      'denominations': denominations,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'Brand{id:$id, content:$content, denominations:$denominations}';
   }
 }
