@@ -1,40 +1,37 @@
 import 'package:flutter/material.dart';
-import 'ui/screen.dart';
+import 'package:myshop/ui/brand/add_brand_screen.dart';
+import 'package:myshop/ui/brand/brand_screen.dart';
+import 'package:myshop/ui/reslease/reslease_screen.dart';
+import 'package:myshop/ui/shared/app_drawer.dart';
 
-
+import 'ui/configuration/add_config_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-
-   
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MyShop',
       debugShowCheckedModeBanner: false,
+      title: 'Phát hành',
       theme: ThemeData(
         fontFamily: 'Lato',
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blue,
         ).copyWith(
-          secondary:Colors.deepOrange,
+          secondary: Colors.blue,
         ),
       ),
       home: const AppDrawer(),
       routes: {
-        BrandScreen.routeName:
-           (ctx) => const BrandScreen(),
-        ConfigScreen.routeName:
-           (ctx) => const ConfigScreen(),
-        ResLeaseScreen.routeName:
-           (ctx) => const ResLeaseScreen(),    
+        "addBrand": (context) => const AddBrand(),
+        "addConfig": (context) => const AddConfig(),
+        "appDrawer": (context) => const AppDrawer(),
       },
-
     );
   }
 }

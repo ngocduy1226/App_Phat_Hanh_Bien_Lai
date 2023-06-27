@@ -1,22 +1,22 @@
 class Brand {
   final String? id;
-  final String title;
+  final double denominations;
   final String content;
 
   Brand({
     this.id,
-    required this.title,
+    required this.denominations,
     required this.content,
   });
 
   Brand copyWith({
     String? id,
-    String? title,
+    double? denominations,
     String? content,
   }) {
     return Brand(
       id: id ?? this.id,
-      title: title ?? this.title,
+      denominations: denominations ?? this.denominations,
       content: content ?? this.content,
     );
   }

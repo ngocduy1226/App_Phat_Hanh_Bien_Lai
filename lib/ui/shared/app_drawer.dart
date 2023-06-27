@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 //import 'package:provider/provider.dart';
 
-import 'app_nav.dart';
+import '../brand/brand_screen.dart';
 import '../reslease/reslease_screen.dart';
 import '../brand/brand_screen.dart';
 import '../configuration/config_screen.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
-
+  static const routeName = '/app-drawer';
   @override
   State<AppDrawer> createState() => _AppDrawerState();
 }
@@ -17,6 +17,7 @@ class _AppDrawerState extends State<AppDrawer> {
   int selectedIndex = 0;
   final List<Widget> pages = [
     const ResLeaseScreen(),
+  
     const ConfigScreen(),
     const BrandScreen(),
   ];
@@ -31,17 +32,17 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        drawer: const AppNav(),
-        appBar: AppBar(
-          title: titles[selectedIndex],
-        ),
+        // drawer: const AppNav(),
+        // appBar: AppBar(
+        //   title: titles[selectedIndex],
+        // ),
         bottomNavigationBar: BottomNavigationBar(
           onTap: changePage,
           backgroundColor: Colors.blue,
           unselectedItemColor: Colors.white,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_upward_outlined),
+              icon: Icon(Icons.publish),
               label: 'Phát hành',
             ),
             BottomNavigationBarItem(
