@@ -45,6 +45,16 @@ class SQLdb {
     )
     '''); 
  
+     await db.execute('''
+    CREATE TABLE "receipts" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "brand" INTEGER NOT NULL,
+    "quantity" DOUBLE NOT NULL,
+    "total" DOUBLE NOT NULL
+    )
+    ''');
 
     // await db.execute(bản moi)
     print("==============Database created!============");
