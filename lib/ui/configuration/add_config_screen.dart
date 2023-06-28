@@ -1,7 +1,7 @@
 import 'dart:developer' as logDev;
 import 'package:flutter/material.dart';
-import 'package:myshop/SQLDB.dart';
 
+import '../shared/SQLDB.dart';
 import '../shared/dialog_utils.dart';
 
 // import '../share/app_drawer.dart';

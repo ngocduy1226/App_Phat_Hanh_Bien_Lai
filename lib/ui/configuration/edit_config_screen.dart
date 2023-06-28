@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myshop/SQLDB.dart';
+
 import 'package:myshop/ui/configuration/config_screen.dart';
 
+import '../shared/SQLDB.dart';
 import '../shared/dialog_utils.dart';
 
 class UpdateConfig extends StatefulWidget {
