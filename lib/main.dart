@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
           secondary: Colors.blue,
         ),
       ),
-      home: const AppDrawer(),
+       home: const AppDrawer(),
+     
       routes: {
         "addBrand": (context) => const AddBrand(),
         "addConfig": (context) => const AddConfig(),

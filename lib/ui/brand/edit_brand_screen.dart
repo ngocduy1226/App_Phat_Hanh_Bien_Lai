@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:myshop/ui/brand/brand_screen.dart';
-
 import '../shared/SQLDB.dart';
 import '../shared/dialog_utils.dart';
 

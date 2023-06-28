@@ -28,6 +28,7 @@
 //           ),
 
 
+<<<<<<< HEAD
 //           const Divider(),
 //           ListTile(
 //             leading: const Icon(Icons.exit_to_app),
@@ -52,3 +53,29 @@
 //     );
 //   }
 // }
+=======
+          const Divider(),
+          // ListTile(
+          //   leading: const Icon(Icons.exit_to_app),
+          //   title: const Text('Cấu hình'),
+          //   onTap: () {
+          //     Navigator.of(context)
+          //       .pushNamed(ConfigScreen.routeName);
+          //   },
+          // ),
+
+          const Divider(),
+          // ListTile(
+          //   leading: const Icon(Icons.exit_to_app),
+          //   title: const Text('Danh mục '),
+          //   onTap: () {
+          //     Navigator.of(context)
+          //       .pushNamed(BrandScreen.routeName);
+          //   },
+          // ),
+        ],
+      ),
+    );
+  }
+}
+>>>>>>> fe7460e13db9f271a36ee2d3a0f71b064820c293

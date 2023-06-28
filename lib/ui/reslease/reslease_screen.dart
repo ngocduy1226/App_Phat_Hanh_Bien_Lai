@@ -2,10 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+<<<<<<< HEAD
 
 
 import '../receipt.dart/receipt.dart';
 import '../shared/SQLDB.dart';
+=======
+import 'package:myshop/SQLDB.dart';
+
+import '../receipt.dart/receipt.dart';
+>>>>>>> fe7460e13db9f271a36ee2d3a0f71b064820c293
 import '../shared/dialog_utils.dart';
 
 SQLdb sqLdb = SQLdb();

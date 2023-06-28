@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:myshop/ui/shared/dialog_utils.dart';
 import 'package:myshop/ui/brand/edit_brand_screen.dart';
 import 'package:intl/intl.dart';
 
-import '../shared/SQLDB.dart';
 
+import '../shared/SQLDB.dart';
 
 // import 'package:open_file/open_file.dart';
 
